@@ -1,0 +1,29 @@
+body {background-color: #c5ffa0}
+a {color:#0000ff; font-weight: bold; font-size:14px;}
+a:hover {color:#ff0000; font-weight: bold; text-decoration:none}
+h1 {color: #0000ff; font-size:18px}
+h2 {color: #ff00ff; font-size:16px}
+p {color: #007777; font-family: Sans-Serif, "Sans-Serif"; font-size:14px}
+
+.menu {
+	height:42px;
+	padding:0 0 0 16px;
+	background:url(images/spacer.png) repeat;
+}
+.menu li {
+	display:block;
+	float:left;
+}
+.menu li.active {
+	background: #000011;
+}
+.menu a {
+	color:#FFF;
+	display:block;
+	line-height:42px;
+	text-decoration:none;
+	padding:0 14px;
+}
+.menu a:hover {
+	background:url(images/spacer.png) repeat;
+}
