@@ -17,7 +17,7 @@
                     $lNativeLangParentGroupName = $lCatalogue->GetNativeLangGroupName($lParentGroupId);
                     //echo ("name of parent group".$lNativeLangGroupName);
                     echo "parent group:   ";
-                    echo "<A HREF='Catalogue.php?GroupName=$lParentGroupName'>$lNativeLangParentGroupName</A></P>";
+                    echo "<A HREF='Catalogue.php?GroupId=$lParentGroupId'>$lNativeLangParentGroupName</A></P>";
                 ?>
             </p></center>
         </td>
