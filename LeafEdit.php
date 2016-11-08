@@ -7,7 +7,7 @@
     function displParenGrp()
     {
         $lCatalogue = new cCatalogue();
-        $lGroupId = $_GET['GroupId'];
+        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
         $lParentGroupId = $lCatalogue->GetParentIdByChildId($lGroupId);
         $lParentGroupName = $lCatalogue->GetGroupName($lParentGroupId);
         $lNativeLangParentGroupName = $lCatalogue->GetNativeLangGroupName($lParentGroupId);
@@ -19,8 +19,7 @@
     function displCurrentGrp()
     {
         $lCatalogue = new cCatalogue();
-        $lGroupId = $_GET['GroupId'];
-        //$lGroupName = $lCatalogue->GetGroupName($lGroupId);//для блока стр. 73-79
+        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
         $lNativeLangGroupName = $lCatalogue->GetNativeLangGroupName($lGroupId);
         echo "<font size = 3 face = arial>Группа:   </font>"; 
         echo "<font size = 4 color = blue face = arial>".$lNativeLangGroupName."</font>";
@@ -30,12 +29,12 @@
     //
     function displGroupLst()
     {
-        if (array_key_exists("GroupId", $_GET))
+        //requested group ID: 
+        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+        if ($lGroupId != NULL)
         {
             // create instance of Catalogue:
             $lCatalogue = new cCatalogue;
-            //requested group ID: 
-            $lGroupId = $_GET['GroupId'];
             //request and display child groups:
             print "<table width=100% border=1 cellspacing=2 cellpadding=2>";
             $lSubgroupList = $lCatalogue->GetSubgroupList($lGroupId);
@@ -102,7 +101,7 @@
                 <form action="AddNewLeaf.php" method="post">
 
                     <p>GroupName:<input type="hidden" name="GroupName" value=<?php echo $lNativeLangGroupName?>  enabled><?php echo $lNativeLangGroupName?></p>
-                    <p>GroupId:<input type="hidden" name="GroupId" value=<?php echo $_GET["GroupId"]?> enabled><?php echo $_GET["GroupId"]?></p>
+                    <p>GroupId:<input type="hidden" name="GroupId" value=<?php echo filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED)?> enabled><?php echo filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED)?></p>
                     <p>Comment<Br>
                             <textarea name="NewOpinion" cols="50" rows="5"></textarea>
                     </p>

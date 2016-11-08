@@ -7,9 +7,10 @@
         function displayParentGroupName()
         {
             $lCatalogue = new cCatalogue();
-            $lGroupId = $_GET['GroupId'];
+            //$lGroupId = $_GET['GroupId'];
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
             $lParentGroupId = $lCatalogue->GetParentIdByChildId($lGroupId);
-            $lParentGroupName = $lCatalogue->GetGroupName($lParentGroupId);
+            //$lParentGroupName = $lCatalogue->GetGroupName($lParentGroupId);
             $lNativeLangParentGroupName = $lCatalogue->GetNativeLangGroupName($lParentGroupId);
             echo "parent group:   ";
             echo "<A HREF='Catalogue.php?GroupId=$lParentGroupId'>$lNativeLangParentGroupName</A></P>";
@@ -19,17 +20,14 @@
         //<!--displays the name of the current group-->
         function displayGroupName($pParentGroupName)
         {
-            if (array_key_exists("GroupName", $_GET))
-            {
-                $lGroupName = $_GET['GroupName'];
-            }
-            else
+            $lGroupName = filter_input(INPUT_GET, 'GroupName', FILTER_SANITIZE_ENCODED);
+            if ($lGroupName == null)
             {
                 //If this file is docked to AddNewGroupToCatalogue.php after the addition of the new group should be the name of the current group changed
                 $lGroupName = $pParentGroupName;		
             }	
             $lCatalogue = new cCatalogue();
-            $lGroupId = $_GET['GroupId'];
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
             $lNativeLangGroupName = $lCatalogue->GetNativeLangGroupName($lGroupId);
             echo "<font size = 3 face = arial>Group:   </font>"; 
             echo "<font size = 4 color = blue face = arial>".$lNativeLangGroupName."</font>";
@@ -38,12 +36,12 @@
         //<!--display the list of subgroups of the clicked group-->
         function displayGroupList()
         {
-            if (array_key_exists("GroupId", $_GET))
+            //requested group ID: 
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            if ($lGroupId != null)
             {
                 // create instance of Catalogue:
                 $lCatalogue = new cCatalogue;
-                //requested group ID: 
-                $lGroupId = $_GET['GroupId'];
                 //request and display child groups:
                 print "<table width=100% border=1 cellspacing=2 cellpadding=2>";
                 $lSubgroupList = $lCatalogue->GetSubgroupList($lGroupId);
@@ -68,11 +66,11 @@
         //<!--display list of opinions of the clicked group-->
         function displayOpinionList()
         {
-            if (array_key_exists("GroupId", $_GET))
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            if ($lGroupId != NULL)
             {
                 // create instance of Leaf:
                 $lLeaf = new cLeaf;
-                $lGroupId = $_GET['GroupId'];
                 //check whether to allow this group to store opinuons
                 $lFlag = $lLeaf->IsLeafable($lGroupId);
                 if ($lFlag == 1)
@@ -80,9 +78,8 @@
                     $lCounter = 0;
                     //request and display child groups:
                     print "<table width=100% border=1 cellspacing=2 cellpadding=2>";
-                    $lLeafList = $lLeaf->GetLeafList($lGroupId);
-                    //TODO: Make circled output of opinions !!!
-                    while($lCounter< count($lLeafList))
+                    $lLeafList = $lLeaf->GetLeafList($lGroupId);//TODO: Make circled output of opinions !!!                    
+                    while($lCounter < count($lLeafList))
                     {    
                         $lOpinion = $lLeafList[$lCounter][4];
                         print "<table width=100% border=1 cellspacing=2 cellpadding=2><tr><td><center><p>$lOpinion</p></center></td></tr>";
@@ -101,9 +98,9 @@
         function displayCatalogEditHRef()
         {
             $lRoot = 'root';
-            if (array_key_exists("GroupId", $_GET))//TODO: переделать этот if - использовать GroupID
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            if ($lGroupId != NULL)
             {
-                $lGroupId = $_GET["GroupId"];
                 // create instance of Catalogue:
                 $lCatalogue = new cCatalogue;
                 $lGroupName = $lCatalogue->GetGroupName($lGroupId);
@@ -119,9 +116,9 @@
         function displayLeafEditHRef()
         {
             $lRoot = 'root';
-            if (array_key_exists("GroupId", $_GET))
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            if ($lGroupId != NULL)
             {
-                $lGroupId = $_GET["GroupId"];
                 echo "<A HREF='LeafEdit.php?GroupId=$lGroupId'>Write Your opinion and/or rewiew</A>"; 
             }
             else

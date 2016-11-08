@@ -41,6 +41,8 @@
                 $lGroupName = "none";
             }   
             
+            $result_set->close();
+            
             //Если нужно использовать опции соединения.
             /*
             $mysqli = mysqli_init();
@@ -84,6 +86,7 @@
                         $lGroupName = $col_value;
                     }
                 }
+                $result_set->close();
             }
             else 
             {
@@ -115,7 +118,7 @@
                     $lGroupId = $col_value;
                 }
             }    
-
+            $result_set->close();
             return $lGroupId;
     }
 
@@ -145,7 +148,7 @@
             if(count($mGroupList)==0){
                 $mGroupList[0] = [-1 , "У выбранной группы отсутствуют подгруппы"];
             }
-            
+            $result_set->close();
             return $mGroupList;
         }
 
@@ -172,7 +175,7 @@
                     $lGroupId = $col_value;					
                 }
             }    
-
+            $result_set->close();
             $lParentGroupId = GetParentIdByChildId($lGroupId);
             return $lParentGroupId;
 
@@ -201,7 +204,7 @@
                     $lParentGroupId = $col_value;					
                 }
             }    
-
+            $result_set->close();
             return $lParentGroupId;
         }
 
@@ -228,8 +231,8 @@
                     $lGroupId = $col_value;					
                 }
             }    
-
-             return $lGroupId+1;
+            $result_set->close();
+            return $lGroupId+1;
             
         }
 
@@ -257,7 +260,7 @@
                 }
             }    
 
-            
+            $result_set->close();
             return $lResult;
         }
 
@@ -276,7 +279,7 @@
             $mysqli->set_charset("utf8");
             // Insert link 
             $result_set = $mysqli->query("INSERT INTO  groups_graph (parent_group_id, group_id, group_order, properties) VALUES ($pParentGroupId, $pGroupId, $pOrder, '|2015-11-07|')"); 
-
+            $result_set->close();
         }
 
         //************************************************************************************************
@@ -323,7 +326,7 @@
             
             // Save group 
             $result_set = $mysqli->query("INSERT INTO groups (group_id, name, native_lang_name, leafable) VALUES ('$pNewGroupId', '$pNewGroupName', '$pNativeLangNewGroupName', $lLeafable);"); 
-            
+            $result_set->close();
         }
 
         //************************************************************************************************
