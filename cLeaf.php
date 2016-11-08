@@ -1,6 +1,6 @@
 <?php
     //require ('.php'); 
-
+    header('Content-type: text/html; charset=utf-8');
     // Leaf class.
     class cLeaf 
     {
@@ -53,7 +53,7 @@
                 }
                 $mysqli->set_charset("utf8");
                 // Select group ids 
-                $result_set = $mysqli->query("SELECT leaf_id, group_id, parent_leaf_id, author_id, opinion, review, creation_date FROM Leaf where group_id = '$pGroupId'"); // selecting rows from "Groups" table
+                $result_set = $mysqli->query("SELECT leaf_id, group_id, parent_leaf_id, author_id, opinion, opinion, creation_date FROM leaf where group_id = '$pGroupId'"); // selecting rows from "Groups" table
                 $items = array(); // menu item array
                 $mLeafList = NULL;
                 $mCounter = 0;
@@ -65,7 +65,6 @@
                                 $line["parent_leaf_id"], 
                                 $line["author_id"], 
                                 $line["opinion"], 
-                                $line["review"], 
                                 $line["creation_date"]
                             ];
                     $mLeafList[$mCounter] = $mLeaf;
@@ -118,7 +117,7 @@
             }
             $mysqli->set_charset("utf8");
             // Select group ids 
-            $result_set = $mysqli->query("SELECT MAX(leaf_id) FROM Leaf"); // selecting rows from "Leaf" table
+            $result_set = $mysqli->query("SELECT MAX(leaf_id) FROM leaf"); // selecting rows from "leaf" table
             $items = array(); // menu item array
             while ($line = $result_set->fetch_assoc()) 
             {
@@ -145,7 +144,7 @@
             }
             $mysqli->set_charset("utf8");
             // Select group ids 
-            $result_set = $mysqli->query("SELECT MAX(leaf_order) FROM Leaf WHERE group_id = $pGroupId"); // selecting rows from "Leaf" table
+            $result_set = $mysqli->query("SELECT MAX(leaf_order) FROM leaf WHERE group_id = $pGroupId"); // selecting rows from "leaf" table
             $items = array(); // menu item array
             while ($line = $result_set->fetch_assoc()) 
             {
@@ -172,7 +171,7 @@
             }
             $mysqli->set_charset("utf8");
             // Insert leaf 
-            $result_set = $mysqli->query("INSERT INTO Leaf (leaf_id, group_id, parent_leaf_id, author_id, leaf_order, opinion, review, creation_date, properties) VALUES ('$pNewLeafId', '$pGroupId', '$pParentLeafId', '$pAuthorId', '$pLeafOrder', '$pNewLeafOpinion', '$pNewLeafReviw', '$pCreationDate', '$pProperties')"); 
+            $result_set = $mysqli->query("INSERT INTO leaf (leaf_id, group_id, parent_leaf_id, author_id, leaf_order, opinion, creation_date, properties) VALUES ('$pNewLeafId', '$pGroupId', '$pParentLeafId', '$pAuthorId', '$pLeafOrder', '$pNewLeafOpinion', '$pCreationDate', '$pProperties')"); 
 
         }	
     }

@@ -1,6 +1,6 @@
 <?php
     require_once ('cLeaf.php');
-
+    header('Content-type: text/html; charset=utf-8');
     // Catalog class.
     class cCatalogue 
     {
@@ -30,10 +30,10 @@
                 $result_set = $mysqli->query("SELECT name FROM groups WHERE group_id = '$pGroupId'"); // selecting rows from "Groups" table
                 while ($line = $result_set->fetch_assoc()) 
                 {
-                        foreach ($line as $col_value) 
-                        {
-                                $lGroupName = $col_value;
-                        }
+                    foreach ($line as $col_value) 
+                    {
+                        $lGroupName = $col_value;
+                    }
                 }
             }
             else
@@ -79,10 +79,10 @@
                 $result_set = $mysqli->query("SELECT native_lang_name FROM groups WHERE group_id = '$pGroupId'"); // selecting rows from "Groups" table
                 while ($line = $result_set->fetch_assoc()) 
                 {
-                        foreach ($line as $col_value) 
-                        {
-                                $lGroupName = $col_value;
-                        }
+                    foreach ($line as $col_value) 
+                    {
+                        $lGroupName = $col_value;
+                    }
                 }
             }
             else 
@@ -110,10 +110,10 @@
             $result_set = $mysqli->query("SELECT group_id FROM groups WHERE name = '$pGroupName'"); // selecting rows from "Groups" table
             while ($line = $result_set->fetch_assoc()) 
             {
-                    foreach ($line as $col_value) 
-                    {
-                            $lGroupId = $col_value;
-                    }
+                foreach ($line as $col_value) 
+                {
+                    $lGroupId = $col_value;
+                }
             }    
 
             return $lGroupId;
@@ -332,7 +332,7 @@
         */
         function SetParentGroupByNames($pCildGroupName, $pParentGroupName) 
         {
-               $this->name = $name;
+            $this->name = $name;
         }
 
         //************************************************************************************************
@@ -341,7 +341,7 @@
         */
         function SetParentGroupByIds($pCildGroupId, $pParentGroupId) 
         {
-               $this->name = $name;
+            $this->name = $name;
         }
     }
 ?>

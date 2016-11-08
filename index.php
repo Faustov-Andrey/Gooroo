@@ -1,40 +1,56 @@
 <?php	
-	include ('Top.php');	
+    include ('Top.php');	
 ?>
-<-- home page -->
-<tr>
-    <td>
+
+<div class="top_1">
+    <div class="top_1_0">
+        <center>?</center>
+    </div>
+    <div class="top_1_1">
+        <center><p>page numbers</p></center>
+    </div>
+    <div class="top_1_2">
         <center><p>?</p></center>
-    </td>
-    <td>
-        <center><p>page icons</p></center>
-    </td>
-    <td>
+    </div>
+</div>
+<div class="top_1">
+   <div class="top_1_0">
+       <center>
+           <A HREF="Catalogue.php?GroupName=Root&GroupId=0">[+]</A> <A HREF="Catalogue.php?GroupName=Root&GroupId=0">Каталог</A>
+       </center>
+   </div>
+   <div class="top_1_1">
+       <center><p><img src=central_img.JPG width=800 height=500></p></center>
+   </div>
+   <div class="top_1_2">
+       <center><p>news and advertysing</p></center>
+   </div>
+</div>
+
+<div class="top_1">
+    <div class="top_1_0">
+        <center>?</center>
+    </div>
+    <div class="top_1_1">
+        <center><p>page numbers</p></center>
+    </div>
+    <div class="top_1_2">
         <center><p>?</p></center>
-    </td>
-</tr>
-    <tr> 
-        <td>
-            <A HREF="Catalogue.php?GroupName=Root&GroupId=0">[+]</A> <A HREF="Catalogue.php?GroupName=Root&GroupId=0">Каталог</A>
-        </td>
-        <td>
-            <center><img src=central_part.JPG width=800 height=500></center>
-        </td>
-        <td>
-            <center><p>news and advertysing</p></center>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <center><p>?</p></center>
-        </td>
-        <td>
-            <center><p>page icons</p></center>
-        </td>
-        <td>
-            <center><p>?</p></center>
-        </td>
-    </tr>
+    </div>
+</div>
+
+<div class="top_1">
+    <div class="top_1_0">
+        <center>?</center>
+    </div>
+    <div class="top_1_1">
+        <center><p>icons of payment systems</p></center>
+    </div>
+    <div class="top_1_2">
+        <center><p>?</p></center>
+    </div>
+</div>
+
 <?php	
-	include ('Bottom.php');	
+    include ('Bottom.php');	
 ?>
