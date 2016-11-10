@@ -27,6 +27,29 @@
             // Select group ids 
             if ($pGroupId != -1)
             {
+                
+                
+                /*
+                
+                // подготавливаемый запрос, первая стадия: подготовка 
+                if (!($stmt = $mysqli->prepare("SELECT name FROM groups WHERE group_id = (?)"))) {
+                    echo "Не удалось подготовить запрос: (" . $mysqli->errno . ") " . $mysqli->error;
+                }
+                // подготавливаемый запрос, вторая стадия: привязка и выполнение 
+                if (!$stmt->bind_param("i", $pGroupId)) {
+                    echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
+                }
+
+                if (!$stmt->execute()) {
+                    echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
+                }
+                
+                */
+                
+                
+                
+                
+                
                 $result_set = $mysqli->query("SELECT name FROM groups WHERE group_id = '$pGroupId'"); // selecting rows from "Groups" table
                 while ($line = $result_set->fetch_assoc()) 
                 {
@@ -35,13 +58,17 @@
                         $lGroupName = $col_value;
                     }
                 }
+                
+                $result_set->close();
+                
             }
             else
             {
                 $lGroupName = "none";
             }   
             
-            $result_set->close();
+            
+            //$stmt->close();
             
             //Если нужно использовать опции соединения.
             /*
