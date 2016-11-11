@@ -13,16 +13,19 @@
     $lNewGroupId = $lCatalogue->GetNewGroupId();
     $lNewGroupName = $_POST['NewGroupName'];
     $lNativeLangGroupName = $_POST['NativeLangGroupName'];
-
-    //Add group
-    $lEcho = $lCatalogue->AddGroup($lNewGroupId, $lNewGroupName, $lNativeLangGroupName); 
-    echo $lEcho;
-    //Request order of new group 
-    $lGroupOrder = $lCatalogue->GetGroupOrger($lParentGroupId);
-
-    //Save link in GroupGraph 
-    $lCatalogue->SetGraphLink($lParentGroupId, $lNewGroupId, $lGroupOrder+1);
-
+    
+    $check = NULL;
+    $check = $lCatalogue->CheckUnicGrName($lNewGroupName, $lNativeLangGroupName);
+    if ($check == NULL)
+    {
+        //Add group
+        $lEcho = $lCatalogue->AddGroup($lNewGroupId, $lNewGroupName, $lNativeLangGroupName); 
+        echo $lEcho;
+        //Request order of new group 
+        $lGroupOrder = $lCatalogue->GetGroupOrger($lParentGroupId);
+        //Save link in GroupGraph 
+        $lCatalogue->SetGraphLink($lParentGroupId, $lNewGroupId, $lGroupOrder+1);
+    }
     $lParentGroupName = $_POST['ParentGroupName'];
     $_GET['GroupId'] = $_POST['ParentGroupId'];
     include ('Catalogue.php');
