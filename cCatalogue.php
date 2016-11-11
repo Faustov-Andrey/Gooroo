@@ -510,7 +510,7 @@
         /**
         * @TODO Add description of the method
         */
-        function CheckUnicGrName($pNewGroupName, $pNativeLangNewGroupName) 
+        function CheckUnicGrName($pNewGroupName, $pNativeLangNewGroupName) // @TODO использовать prepared statement
         {
             // Connecting to DB
             $mysqli = new mysqli("localhost", "faust", "ioan", "iNDocsnet"); // connecting to DB
@@ -546,17 +546,11 @@
             }
         }
         
-        function NameChck()
-        {
-            return true;
-        }
-        
-        
         //************************************************************************************************
         /**
         * @TODO Add description of the method
         */
-        function AddGroup($pNewGroupId, $pNewGroupName, $pNativeLangNewGroupName) 
+        function AddGroup($pNewGroupId, $pNewGroupName, $pNativeLangNewGroupName) // @TODO использовать prepared statement
         {
             // Connecting to DB
             $mysqli = new mysqli("localhost", "faust", "ioan", "iNDocsnet"); // connecting to DB
