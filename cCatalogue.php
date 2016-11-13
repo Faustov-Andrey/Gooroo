@@ -205,7 +205,6 @@
             }
             $mysqli->set_charset("utf8");
             
-            
             // подготавливаемый запрос, первая стадия: подготовка 
             if (!($stmt = $mysqli->prepare("SELECT group_id, name, native_lang_name FROM groups WHERE group_id IN (SELECT group_id FROM groups_graph WHERE parent_group_id = (?))"))) {
                 echo "Не удалось подготовить запрос: (" . $mysqli->errno . ") " . $mysqli->error;
@@ -375,10 +374,6 @@
             if (!($stmt = $mysqli->prepare("SELECT max(group_id) FROM groups"))) {
                 echo "Не удалось подготовить запрос: (" . $mysqli->errno . ") " . $mysqli->error;
             }
-//            // подготавливаемый запрос, вторая стадия: привязка и выполнение 
-//            if (!$stmt->bind_param("i", $pGroupId)) {
-//                echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
-//            }
             // выполняю запрос
             if (!$stmt->execute()) {
                 echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
@@ -405,7 +400,7 @@
 //            }    
 //            $result_set->close();
             
-            return $lGroupId+1;
+            return $lGroupId + 1;
             
         }
 
@@ -476,7 +471,7 @@
             }
             $mysqli->set_charset("utf8");
             
-                        // Connecting to DB
+            // Connecting to DB
             $mysqli = new mysqli("localhost", "faust", "ioan", "iNDocsnet"); // connecting to DB
             if ($mysqli->connect_error) 
             {
@@ -512,6 +507,7 @@
         */
         function CheckUnicGrName($pNewGroupName, $pNativeLangNewGroupName) // @TODO использовать prepared statement
         {
+            $lResult = NULL;
             // Connecting to DB
             $mysqli = new mysqli("localhost", "faust", "ioan", "iNDocsnet"); // connecting to DB
             if ($mysqli->connect_error) 
@@ -519,31 +515,86 @@
                 die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
             }
             $mysqli->set_charset("utf8");
-            // Check that new name is UNIC!!! for THIS group
-            $result_set = $mysqli->query("SELECT name FROM groups WHERE name = '$pNewGroupName'"); // selecting subgroup with coincidental names  
-            while ($line = $result_set->fetch_assoc()) 
-            {
-                foreach ($line as $col_value) 
-                {
-                    $lResult = $col_value;
-                    if($lResult == $pNewGroupName)
-                    {
-                        return $mEcho = "<center><p><font color = red size =  4> Подгруппа с таким англоязычным именем уже есть в этой группе. Выберете другое имя для подгруппы. </font></p></center>";
-                    }
-                }
+            
+            // подготавливаемый запрос, первая стадия: подготовка 
+            if (!($stmt = $mysqli->prepare("SELECT name FROM groups WHERE name = (?)"))) {
+                echo "Не удалось подготовить запрос: (" . $mysqli->errno . ") " . $mysqli->error;
             }
-            $result_set = $mysqli->query("SELECT native_lang_name FROM groups WHERE native_lang_name = '$pNativeLangNewGroupName'"); // selecting subgroup with coincidental native_lang_names
-            while ($line = $result_set->fetch_assoc()) 
-            {
-                foreach ($line as $col_value) 
-                {
-                    $lResult = $col_value;
-                    if($lResult == $pNativeLangNewGroupName)
-                    {
-                        return $mEcho = "<center><p><font color = red size =  4> Подгруппа с таким именем на РУССКОМ языке уже есть в этой группе. Выберете другое имя для подгруппы. </font></p></center>";
-                    }  
-                }
+            // подготавливаемый запрос, вторая стадия: привязка и выполнение 
+            if (!$stmt->bind_param("s", $pNewGroupName)) {
+                echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
             }
+            // выполняю запрос
+            if (!$stmt->execute()) {
+                echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
+            }                
+            // Определяю переменные для результата 
+            $stmt->bind_result($lGrNm);                
+            // Выбираю значения изрезалтсета
+            while ($stmt->fetch()) {
+               $lResult = $lGrNm;
+            }
+            if($lResult == $pNewGroupName)
+                {
+                    return $mEcho = "<center><p><font color = red size =  4> Подгруппа с таким англоязычным именем уже есть в этой группе. Выберете другое имя для подгруппы. </font></p></center>";
+                }
+            // free memory
+            $stmt->close();
+            
+//            //Old version
+//            // Check that new name is UNIC!!! for THIS group
+//            $result_set = $mysqli->query("SELECT name FROM groups WHERE name = '$pNewGroupName'"); // selecting subgroup with coincidental names  
+//            while ($line = $result_set->fetch_assoc()) 
+//            {
+//                foreach ($line as $col_value) 
+//                {
+//                    $lResult = $col_value;
+//                    if($lResult == $pNewGroupName)
+//                    {
+//                        return $mEcho = "<center><p><font color = red size =  4> Подгруппа с таким англоязычным именем уже есть в этой группе. Выберете другое имя для подгруппы. </font></p></center>";
+//                    }
+//                }
+//            }
+            
+                        // подготавливаемый запрос, первая стадия: подготовка 
+            if (!($stmt = $mysqli->prepare("SELECT native_lang_name FROM groups WHERE native_lang_name = (?)"))) {
+                echo "Не удалось подготовить запрос: (" . $mysqli->errno . ") " . $mysqli->error;
+            }
+            // подготавливаемый запрос, вторая стадия: привязка и выполнение 
+            if (!$stmt->bind_param("s", $pNewGroupName)) {
+                echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
+            }
+            // выполняю запрос
+            if (!$stmt->execute()) {
+                echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
+            }                
+            // Определяю переменные для результата 
+            $stmt->bind_result($lNatLanGrNm);                
+            // Выбираю значения изрезалтсета
+            while ($stmt->fetch()) {
+               $lResult = $lNatLanGrNm;
+            }
+            if($lResult == $pNativeLangNewGroupName)
+                {
+                    return $mEcho = "<center><p><font color = red size =  4> Подгруппа с таким именем на РУССКОМ языке уже есть в этой группе. Выберете другое имя для подгруппы. </font></p></center>";
+                }
+            // free memory
+            $stmt->close();
+            
+//            //Old version
+//            $result_set = $mysqli->query("SELECT native_lang_name FROM groups WHERE native_lang_name = '$pNativeLangNewGroupName'"); // selecting subgroup with coincidental native_lang_names
+//            while ($line = $result_set->fetch_assoc()) 
+//            {
+//                foreach ($line as $col_value) 
+//                {
+//                    $lResult = $col_value;
+//                    if($lResult == $pNativeLangNewGroupName)
+//                    {
+//                        return $mEcho = "<center><p><font color = red size =  4> Подгруппа с таким именем на РУССКОМ языке уже есть в этой группе. Выберете другое имя для подгруппы. </font></p></center>";
+//                    }  
+//                }
+//            }            
+            
         }
         
         //************************************************************************************************
@@ -559,12 +610,27 @@
                 die('Connect Error (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
             }
             $mysqli->set_charset("utf8");
-            //Request value of fild leafable and inherit it
-            $lLeafable = 1;
-            // Save group 
-            $result_set = $mysqli->query("INSERT INTO groups (group_id, name, native_lang_name, leafable) VALUES ('$pNewGroupId', '$pNewGroupName', '$pNativeLangNewGroupName', $lLeafable);"); 
-            //$result_set->close();
             
+            
+            $lLeafable = 1; // @TODO Request value of fild leafable and inherit it
+            // Save group
+            // подготавливаемый запрос, первая стадия: подготовка 
+            if (!($stmt = $mysqli->prepare("INSERT INTO groups (group_id, name, native_lang_name, leafable) VALUES ((?), (?), (?), (?))"))) {
+                echo "Не удалось подготовить запрос: (" . $mysqli->errno . ") " . $mysqli->error;
+            }
+            // подготавливаемый запрос, вторая стадия: привязка и выполнение 
+            if (!$stmt->bind_param("issi", $pNewGroupId, $pNewGroupName, $pNativeLangNewGroupName, $lLeafable)) {
+                echo "Не удалось привязать параметры: (" . $stmt->errno . ") " . $stmt->error;
+            }
+            // выполняю запрос
+            if (!$stmt->execute()) {
+                echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
+            }                
+            // free memory
+            $stmt->close();
+            
+//            // Old version 
+//            $result_set = $mysqli->query("INSERT INTO groups (group_id, name, native_lang_name, leafable) VALUES ('$pNewGroupId', '$pNewGroupName', '$pNativeLangNewGroupName', $lLeafable);"); 
         }
 
         
