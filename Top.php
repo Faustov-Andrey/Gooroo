@@ -2,7 +2,7 @@
 	require_once ('cMenu.php');
 	//phpinfo(); exit;
         header('Content-type: text/html; charset=utf-8');
-        
+        //phpinfo();
         function GetMenu($pItem, $pItems, $pChildrens) 
         {
             foreach ($pItems as $pItem) 

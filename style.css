@@ -37,17 +37,16 @@ img { margin: 0px; padding: 0px; border: none; }
     width: 100%;
     background: #0ff; 
     padding: 5px; 
-    padding-right: 20px; 
+    padding-right: 5px; 
     border: solid 1px white; 
     float: left;
     
 }
-
 .top_0_0 { 
     display: inline-block ;
     width: 25%;
     padding: 5px; 
-    padding-right: 20px; 
+    padding-right: 5px; 
     float: left;
     border: solid 1px white; 
     
@@ -107,6 +106,24 @@ img { margin: 0px; padding: 0px; border: none; }
     float: left;
     border: solid 1px white; 
     
+}
+.auth_page { 
+    display: inline-block ;
+    width: 100%;
+    background: #0ff; 
+    padding: 5px; 
+    padding-right: 5px; 
+    border: solid 1px white; 
+    float: left; 
+}
+.auth_form { 
+    display: inline-block ;
+    width: 100%;
+    background: #0ff; 
+    padding: 5px; 
+    padding-right: 5px; 
+    border: solid 1px white; 
+    float: left; 
 }
 .block1 { 
     display: inline-block ;
