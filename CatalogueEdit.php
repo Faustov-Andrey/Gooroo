@@ -7,7 +7,7 @@
     function displParentGroupName() 
     {
         //$lGroupId = $_GET['GroupId'];
-        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
         $lCatalogue = new cCatalogue();
         $lParentGroupId = $lCatalogue->GetParentIdByChildId($lGroupId);
         $lParentGroupName = $lCatalogue->GetGroupName($lParentGroupId);
@@ -19,7 +19,7 @@
     function displGroupName() 
     {
         //$lGroupId = $_GET['GroupId'];
-        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
         $lCatalogue = new cCatalogue();// create instance of cCatalogue
         $lNativeLangGroupName = $lCatalogue->GetNativeLangGroupName($lGroupId);
         echo "<font size = 3 face = arial>Группа:   </font>"; 
@@ -104,8 +104,8 @@
     <div class="top_1_1">
         <center><p>
             <form action="AddNewGroupToCatalogue.php" method="post">
-                <p>Parent Group ID:<input type="hidden" name="ParentGroupId" value=<?php echo filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED)?> enabled><?php echo filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED)?></p>
-                <p>Parent Group Name:<input type="hidden" name="ParentGroupName" value=<?php echo filter_input(INPUT_GET, 'GroupName', FILTER_SANITIZE_ENCODED)?> enabled><?php echo filter_input(INPUT_GET, 'GroupName', FILTER_SANITIZE_ENCODED)?></p>
+                <p>Parent Group ID:<input type="hidden" name="ParentGroupId" value=<?php echo filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT)?> enabled><?php echo filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT)?></p>
+                <p>Parent Group Name:<input type="hidden" name="ParentGroupName" value=<?php echo filter_input(INPUT_GET, 'GroupName', FILTER_DEFAULT)?> enabled><?php echo filter_input(INPUT_GET, 'GroupName', FILTER_DEFAULT)?></p>
                 <p>New Group Name in English: <input type="text" name="NewGroupName" /></p>
                 <p>New Group Name in Russian: <input type="text" name="NativeLangGroupName" /></p>
                 <p><input type="submit" value="Add"><input type="reset" value="Clear"></p>

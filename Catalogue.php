@@ -8,7 +8,7 @@
         {
             $lCatalogue = new cCatalogue();
             //$lGroupId = $_GET['GroupId'];
-            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
             $lParentGroupId = $lCatalogue->GetParentIdByChildId($lGroupId);
             //$lParentGroupName = $lCatalogue->GetGroupName($lParentGroupId);
             $lNativeLangParentGroupName = $lCatalogue->GetNativeLangGroupName($lParentGroupId);
@@ -20,14 +20,14 @@
         //<!--displays the name of the current group-->
         function displayGroupName($pParentGroupName)
         {
-            $lGroupName = filter_input(INPUT_GET, 'GroupName', FILTER_SANITIZE_ENCODED);
+            $lGroupName = filter_input(INPUT_GET, 'GroupName', FILTER_DEFAULT);
             if ($lGroupName == null)
             {
                 //If this file is docked to AddNewGroupToCatalogue.php after the addition of the new group should be the name of the current group changed
                 $lGroupName = $pParentGroupName;		
             }	
             $lCatalogue = new cCatalogue();
-            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
             $lNativeLangGroupName = $lCatalogue->GetNativeLangGroupName($lGroupId);
             echo "<font size = 3 face = arial>Group:   </font>"; 
             echo "<font size = 4 color = blue face = arial>".$lNativeLangGroupName."</font>";
@@ -37,7 +37,7 @@
         function displayGroupList()
         {
             //requested group ID: 
-            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
             if ($lGroupId != null)
             {
                 // create instance of Catalogue:
@@ -66,7 +66,7 @@
         //<!--display list of opinions of the clicked group-->
         function displayOpinionList()
         {
-            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
             if ($lGroupId != NULL)
             {
                 // create instance of Leaf:
@@ -98,7 +98,7 @@
         function displayCatalogEditHRef()
         {
             $lRoot = 'root';
-            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
             if ($lGroupId != NULL)
             {
                 // create instance of Catalogue:
@@ -116,7 +116,7 @@
         function displayLeafEditHRef()
         {
             $lRoot = 'root';
-            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+            $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
             if ($lGroupId != NULL)
             {
                 echo "<A HREF='LeafEdit.php?GroupId=$lGroupId'>Write Your opinion and/or rewiew</A>"; 

@@ -7,7 +7,7 @@
     function displParenGrp()
     {
         $lCatalogue = new cCatalogue();
-        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
         $lParentGroupId = $lCatalogue->GetParentIdByChildId($lGroupId);
         $lParentGroupName = $lCatalogue->GetGroupName($lParentGroupId);
         $lNativeLangParentGroupName = $lCatalogue->GetNativeLangGroupName($lParentGroupId);
@@ -19,7 +19,7 @@
     function displCurrentGrp()
     {
         $lCatalogue = new cCatalogue();
-        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
         $lNativeLangGroupName = $lCatalogue->GetNativeLangGroupName($lGroupId);
         echo "<font size = 3 face = arial>Группа:   </font>"; 
         echo "<font size = 4 color = blue face = arial>".$lNativeLangGroupName."</font>";
@@ -30,7 +30,7 @@
     function displGroupLst()
     {
         //requested group ID: 
-        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED);
+        $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
         if ($lGroupId != NULL)
         {
             // create instance of Catalogue:
@@ -101,7 +101,7 @@
                 <form action="AddNewLeaf.php" method="post">
 
                     <p>GroupName:<input type="hidden" name="GroupName" value=<?php echo $lNativeLangGroupName?>  enabled><?php echo $lNativeLangGroupName?></p>
-                    <p>GroupId:<input type="hidden" name="GroupId" value=<?php echo filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED)?> enabled><?php echo filter_input(INPUT_GET, 'GroupId', FILTER_SANITIZE_ENCODED)?></p>
+                    <p>GroupId:<input type="hidden" name="GroupId" value=<?php echo filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT)?> enabled><?php echo filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT)?></p>
                     <p>Comment<Br>
                             <textarea name="NewOpinion" cols="50" rows="5"></textarea>
                     </p>
