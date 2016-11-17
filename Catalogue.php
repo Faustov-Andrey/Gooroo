@@ -81,8 +81,14 @@
                     $lLeafList = $lLeaf->GetLeafList($lGroupId);//TODO: Make circled output of opinions !!!                    
                     while($lCounter < count($lLeafList))
                     {    
+                        $lAuthor = $lLeafList[$lCounter][8];
                         $lOpinion = $lLeafList[$lCounter][4];
-                        print "<table width=100% border=1 cellspacing=2 cellpadding=2><tr><td><center><p>$lOpinion</p></center></td></tr>";
+                        $lDate = $lLeafList[$lCounter][5];
+                        $lLikes = $lLeafList[$lCounter][6];
+                        $lDisLikes = $lLeafList[$lCounter][7];
+                        $lLike = "Like:  ";
+                        $lDisLike = "Dislike:  ";
+                        print "<table width=100% border=1 cellspacing=2 cellpadding=2><tr><td><p>$lAuthor<br><br>$lOpinion<br><br>$lDate  $lLike   $lLikes  $lDisLike  $lDisLikes</p></td></tr>";
                         $lCounter = $lCounter +1;
                     }
                     print "</table>";

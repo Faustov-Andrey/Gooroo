@@ -78,7 +78,7 @@
                 $mysqli->set_charset("utf8");                
                 
                 // подготавливаемый запрос, первая стадия: подготовка 
-                if (!($stmt = $mysqli->prepare("SELECT leaf_id, group_id, parent_leaf_id, author_id, opinion, creation_date FROM leaf where group_id = (?)"))) {
+                if (!($stmt = $mysqli->prepare("SELECT leaf_id, group_id, parent_leaf_id, author_id, opinion, creation_date, liked_number, disliked_number, user_nickname FROM leaf, user where group_id = (?) and leaf.author_id = user.user_id"))) {
                     echo "Не удалось подготовить запрос: (" . $mysqli->errno . ") " . $mysqli->error;
                 }
                 // подготавливаемый запрос, вторая стадия: привязка и выполнение 
@@ -90,7 +90,7 @@
                     echo "Не удалось выполнить запрос: (" . $stmt->errno . ") " . $stmt->error;
                 }                
                 // Определяю переменные для результата 
-                $stmt->bind_result($lLfId, $lGrId, $lPrnLfId, $lAuthId, $lOpn, $lCrDt);                
+                $stmt->bind_result($lLfId, $lGrId, $lPrnLfId, $lAuthId, $lOpn, $lCrDt, $lLkdNum, $lDislkdNum, $lUserNickNm);                
                 $mLeafList = NULL;
                 $lCounter = 0;
                 // Выбираю значения изрезалтсета
@@ -102,7 +102,10 @@
                                 $lPrnLfId,
                                 $lAuthId, 
                                 $lOpn, 
-                                $lCrDt
+                                $lCrDt,
+                                $lLkdNum,
+                                $lDislkdNum,
+                                $lUserNickNm
                             ];
                     $mLeafList[$lCounter] = $mLeaf;
                     $lCounter = $lCounter + 1;
@@ -115,7 +118,10 @@
                                         -1, 
                                         "отзывы отсутствуют", 
                                         "обзоры отсутствуют", 
-                                        "2000.01.01"
+                                        "2000.01.01",
+                                        0,
+                                        0,
+                                        "Nemo"
                                     ];
                 }
                 // free memory
