@@ -3,15 +3,27 @@
 	//phpinfo(); exit;
         header('Content-type: text/html; charset=utf-8');
         //phpinfo();
-        function GetMenu($pItem, $pItems, $pChildrens) 
-        {
-            foreach ($pItems as $pItem) 
-                {
-                    echo "<td><center>";
-                    if (!$pItem["parent_menu_id"]) echo printItem($pItem, $pItems, $pChildrens); // Output elements of upper level
-                    echo "</center></td>";
-                }
-        }
+        
+//        $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
+//        if($lUserId = NULL)
+//        {
+//            $lUserId = 1;
+//        }
+    
+//        function GetMenu($pItem, $pItems, $pChildrens, $lUserId) 
+//        {
+//            foreach ($pItems as $pItem) 
+//                {
+//                    $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
+//                    if($lUserId = NULL)
+//                    {
+//                        $lUserId = 1;
+//                    }
+//                    echo "<td><center>";
+//                    if (!$pItem["parent_menu_id"]) echo printItem($pItem, $pItems, $pChildrens, $lUserId); // Output elements of upper level
+//                    echo "</center></td>";
+//                }
+//        }
         
 ?>
 <!DOCTYPE HTML>
@@ -34,27 +46,6 @@
                 </div>
                 <div class="top_0_2">
                     <center><p>Banners and indicators</p></center>
-                </div>
-            </div>
-            <div class="top_1">
-                <div class="top_1_0">
-                    <center>?</center>
-                </div>
-                <div class="top_1_1">
-                    <center><p>
-                        <div id="menu">
-                            <table width=100% border=1 cellspacing=2 cellpadding=2><tr>
-                            <ul>
-                                <?php
-                                    GetMenu($item, $items, $childrens);
-                                ?>
-                            </ul>
-                            </tr></table>
-                        </div>	
-                    </p></center>
-                </div>
-                <div class="top_1_2">
-                    <center><p>searcher</p></center>
                 </div>
             </div>
             

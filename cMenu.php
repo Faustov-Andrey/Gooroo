@@ -21,11 +21,11 @@
     }
 
     //вывод пунктов меню с рекурсивным выбором
-    function printItem($item, $items, $childrens) 
+    function printItem($item, $items, $childrens, $lUserId) 
     {
         /* Output menu items */
         //echo "<li>";
-        echo "<a href='".$item["link"]."'>".$item["native_lang_title"]."</a>";
+        echo "<a href='".$item["link"]."?UserId=$lUserId'>".$item["native_lang_title"]."</a>";
         //echo "<a href='".$item["link"]."'>".$item["title"]."</a>";
         $ul = false; // Does child items were been output? 
         while (true) 

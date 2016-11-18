@@ -55,10 +55,44 @@
                 print "</table>";
             }
     }
-    
+    function GetMenu($pItem, $pItems, $pChildrens, $lUserId) 
+    {
+        foreach ($pItems as $pItem) 
+            {
+                $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
+                if($lUserId == NULL)
+                {
+                    $lUserId = 1;
+                }
+                echo "<td><center>";
+                if (!$pItem["parent_menu_id"]) echo printItem($pItem, $pItems, $pChildrens, $lUserId); // Output elements of upper level
+                echo "</center></td>";
+            }
+    }
 ?>
 
 <!--HTML code block below-->
+<div class="top_1">
+    <div class="top_1_0">
+        <center>?</center>
+    </div>
+    <div class="top_1_1">
+        <center><p>
+            <div id="menu">
+                <table width=100% border=1 cellspacing=2 cellpadding=2><tr>
+                <ul>
+                    <?php
+                        GetMenu($item, $items, $childrens, $lUserId);
+                    ?>
+                </ul>
+                </tr></table>
+            </div>	
+        </p></center>
+    </div>
+    <div class="top_1_2">
+        <center><p>searcher</p></center>
+    </div>
+</div>
 
 <div class="top_1">
     <div class="top_1_0">

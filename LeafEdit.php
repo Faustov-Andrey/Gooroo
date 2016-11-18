@@ -1,4 +1,5 @@
 <?php
+    require_once ('cUser.php');
     require_once ('cCatalogue.php');
     include ('Top.php');	
     header('Content-type: text/html; charset=utf-8');
@@ -54,8 +55,35 @@
             }    
             print "</table>";
         }
+        
     }
+        
+    //<!--display the user Nickname -->
+    function displUserNickName($pUserId)
+    {
+        $lUser = new cUser();
+        //$lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
+        $lUserNickName = $lUser->GetUserNickNameOnId($pUserId);
 
+        return $lUserNickName;
+
+    }
+      
+    function GetMenu($pItem, $pItems, $pChildrens, $lUserId) 
+    {
+        foreach ($pItems as $pItem) 
+            {
+                $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
+                if($lUserId == NULL)
+                {
+                    $lUserId = 1;
+                }
+                echo "<td><center>";
+                if (!$pItem["parent_menu_id"]) echo printItem($pItem, $pItems, $pChildrens, $lUserId); // Output elements of upper level
+                echo "</center></td>";
+            }
+    }
+        
 ?>
 
 <!--HTML code block below-->
@@ -78,6 +106,27 @@
 </div>
 
 <!--display the parent group to the current group-->
+<div class="top_1">
+    <div class="top_1_0">
+        <center>?</center>
+    </div>
+    <div class="top_1_1">
+        <center><p>
+            <div id="menu">
+                <table width=100% border=1 cellspacing=2 cellpadding=2><tr>
+                <ul>
+                    <?php
+                        GetMenu($item, $items, $childrens, $lUserId);
+                    ?>
+                </ul>
+                </tr></table>
+            </div>	
+        </p></center>
+    </div>
+    <div class="top_1_2">
+        <center><p>searcher</p></center>
+    </div>
+</div>
 
 <div class="top_1">
     <div class="top_1_0">
@@ -99,11 +148,22 @@
         <center>
             <p>
                 <form action="AddNewLeaf.php" method="post">
-
-                    <p>GroupName:<input type="hidden" name="GroupName" value=<?php echo $lNativeLangGroupName?>  enabled><?php echo $lNativeLangGroupName?></p>
-                    <p>GroupId:<input type="hidden" name="GroupId" value=<?php echo filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT)?> enabled><?php echo filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT)?></p>
-                    <p>Comment<Br>
-                            <textarea name="NewOpinion" cols="50" rows="5"></textarea>
+                    <p>User:
+                        <input type="hidden" name="UserId" value=
+                            <?php 
+                                $lUserId = 2; // @TODO get UserId from User object 
+                                $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
+                                $lUserNicknm = displUserNickName($lUserId); 
+                            ?>
+                        enabled>
+                        <?php 
+                            echo $lUserNicknm ;
+                        ?>
+                    </p>
+                    <p>GroupName:<input type="hidden" name="GroupName" value=<?php echo $lNativeLangGroupName?> enabled><?php echo $lNativeLangGroupName?></p> 
+                    <!--<p>GroupId:<input type="hidden" name="GroupId" value=<?php //echo filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT)?> enabled><?php //echo filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT)?></p> -->
+                    <p>Write Your comment here:<Br>
+                        <textarea name="NewOpinion" cols="50" rows="5"></textarea>
                     </p>
                     <p><input type="submit"/></p>
                 </form>

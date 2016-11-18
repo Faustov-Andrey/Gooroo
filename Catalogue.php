@@ -9,11 +9,12 @@
             $lCatalogue = new cCatalogue();
             //$lGroupId = $_GET['GroupId'];
             $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
+            $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
             $lParentGroupId = $lCatalogue->GetParentIdByChildId($lGroupId);
             //$lParentGroupName = $lCatalogue->GetGroupName($lParentGroupId);
             $lNativeLangParentGroupName = $lCatalogue->GetNativeLangGroupName($lParentGroupId);
             echo "parent group:   ";
-            echo "<A HREF='Catalogue.php?GroupId=$lParentGroupId'>$lNativeLangParentGroupName</A></P>";
+            echo "<A HREF='Catalogue.php?GroupId=$lParentGroupId&UserId=$lUserId'>$lNativeLangParentGroupName</A></P>";
             return $lNativeLangParentGroupName;
         }
 
@@ -46,6 +47,7 @@
                 print "<table width=100% border=1 cellspacing=2 cellpadding=2>";
                 $lSubgroupList = $lCatalogue->GetSubgroupList($lGroupId);
                 $lCounter = 0;
+                $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
                 //цикл для отображения списка групп
                 while ($lCounter < count($lSubgroupList)) 
                 {
@@ -54,7 +56,8 @@
                     $lGroup = $lSubgroupList[$lCounter];
                     $lGroupId = intval($lGroup[0]);
                     $lGroupNativeLangName = $lGroup[1];
-                    echo "<P> [+] <A HREF='Catalogue.php?GroupId=$lGroupId'>$lGroupNativeLangName</A></P>";				
+                    $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
+                    echo "<P> [+] <A HREF='Catalogue.php?GroupId=$lGroupId&UserId=$lUserId'>$lGroupNativeLangName</A></P>";				
                     $lCounter = $lCounter + 1;
                     
                     echo "</td></tr>";	
@@ -105,16 +108,17 @@
         {
             $lRoot = 'root';
             $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
+            $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
             if ($lGroupId != NULL)
             {
                 // create instance of Catalogue:
                 $lCatalogue = new cCatalogue;
                 $lGroupName = $lCatalogue->GetGroupName($lGroupId);
-                echo "<A HREF='CatalogueEdit.php?GroupName=$lGroupName&GroupId=$lGroupId'>Edit Catalog</A>"; 
+                echo "<A HREF='CatalogueEdit.php?GroupName=$lGroupName&GroupId=$lGroupId&UserId=$lUserId'>Edit Catalog</A>"; 
             }
             else
             {
-                echo "<A HREF='CatalogueEdit.php?GroupName=$lRoot'>Edit Catalog</A>"; //TODO: переделать эту ветку
+                echo "<A HREF='CatalogueEdit.php?GroupName=$lRoot&UserId=$lUserId'>Edit Catalog</A>"; //TODO: переделать эту ветку
             }
         }
         
@@ -123,19 +127,54 @@
         {
             $lRoot = 'root';
             $lGroupId = filter_input(INPUT_GET, 'GroupId', FILTER_DEFAULT);
-            if ($lGroupId != NULL)
+            $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);;
+                    if ($lGroupId != NULL)
             {
-                echo "<A HREF='LeafEdit.php?GroupId=$lGroupId'>Write Your opinion and/or rewiew</A>"; 
+                echo "<A HREF='LeafEdit.php?GroupId=$lGroupId&UserId=$lUserId'>Write Your opinion and/or rewiew</A>"; 
             }
             else
             {
-                echo "<A HREF='LeafEdit.php?GroupName=$lRoot'>Write Ypur opinions and/or rewiew</A>"; //TODO: переделать эту ветку
+                echo "<A HREF='LeafEdit.php?GroupName=$lRoot&UserId=$lUserId'>Write Ypur opinions and/or rewiew</A>"; //TODO: переделать эту ветку
             }	
         }
-        
+        function GetMenu($pItem, $pItems, $pChildrens, $lUserId) 
+        {
+            foreach ($pItems as $pItem) 
+                {
+                    $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
+                    if($lUserId == NULL)
+                    {
+                        $lUserId = 1;
+                    }
+                    echo "<td><center>";
+                    if (!$pItem["parent_menu_id"]) echo printItem($pItem, $pItems, $pChildrens, $lUserId); // Output elements of upper level
+                    echo "</center></td>";
+                }
+        }
 ?>
 
 <!--HTML code block below-->
+<div class="top_1">
+    <div class="top_1_0">
+        <center>?</center>
+    </div>
+    <div class="top_1_1">
+        <center><p>
+            <div id="menu">
+                <table width=100% border=1 cellspacing=2 cellpadding=2><tr>
+                <ul>
+                    <?php
+                        GetMenu($item, $items, $childrens, $lUserId);
+                    ?>
+                </ul>
+                </tr></table>
+            </div>	
+        </p></center>
+    </div>
+    <div class="top_1_2">
+        <center><p>searcher</p></center>
+    </div>
+</div>
 
 <div class="top_1">
     <div class="top_1_0">
