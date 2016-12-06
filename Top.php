@@ -4,27 +4,6 @@
         header('Content-type: text/html; charset=utf-8');
         //phpinfo();
         
-//        $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
-//        if($lUserId = NULL)
-//        {
-//            $lUserId = 1;
-//        }
-    
-//        function GetMenu($pItem, $pItems, $pChildrens, $lUserId) 
-//        {
-//            foreach ($pItems as $pItem) 
-//                {
-//                    $lUserId = filter_input(INPUT_GET, 'UserId', FILTER_DEFAULT);
-//                    if($lUserId = NULL)
-//                    {
-//                        $lUserId = 1;
-//                    }
-//                    echo "<td><center>";
-//                    if (!$pItem["parent_menu_id"]) echo printItem($pItem, $pItems, $pChildrens, $lUserId); // Output elements of upper level
-//                    echo "</center></td>";
-//                }
-//        }
-        
 ?>
 <!DOCTYPE HTML>
 <HTML>

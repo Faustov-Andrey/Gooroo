@@ -137,7 +137,7 @@
                 echo "<A HREF='LeafEdit.php?GroupName=$lRoot&UserId=$lUserId'>Write Ypur opinions and/or rewiew</A>"; //TODO: переделать эту ветку
             }	
         }
-        function GetMenu($pItem, $pItems, $pChildrens, $lUserId) 
+        function GetMenu($pItem, $pItems, $pChildrens) 
         {
             foreach ($pItems as $pItem) 
                 {
@@ -164,7 +164,7 @@
                 <table width=100% border=1 cellspacing=2 cellpadding=2><tr>
                 <ul>
                     <?php
-                        GetMenu($item, $items, $childrens, $lUserId);
+                        GetMenu($item, $items, $childrens);
                     ?>
                 </ul>
                 </tr></table>
